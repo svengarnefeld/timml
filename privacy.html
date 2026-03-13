@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>timml · Privacy Policy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0e0a07;
+    --bg2:       #160f0a;
+    --bg3:       #1e1510;
+    --orange:    #ff6b35;
+    --teal:      #2ec4b6;
+    --cream:     #f0e6d3;
+    --muted:     #7a6a58;
+    --border:    rgba(255,107,53,0.12);
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-mono:  'DM Mono', monospace;
+    --font-sans:  'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .blobs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .blob  { position: absolute; border-radius: 50%; filter: blur(100px); animation: drift 20s ease-in-out infinite alternate; }
+  .blob-1 { width: 500px; height: 500px; background: rgba(255,107,53,0.05); top: -150px; right: -100px; animation-duration: 22s; }
+  .blob-2 { width: 350px; height: 350px; background: rgba(46,196,182,0.04); bottom: 50px;  left: -80px;  animation-duration: 18s; animation-delay: -6s; }
+
+  @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(-20px, 30px) scale(1.06); } }
+
+  .container { max-width: 740px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  nav {
+    padding: 28px 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 72px;
+  }
+  .wordmark { font-family: var(--font-serif); font-style: italic; font-size: 28px; color: var(--orange); text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+
+  .hero { margin-bottom: 64px; }
+  .hero-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 16px; }
+  .hero h1 { font-family: var(--font-serif); font-size: clamp(34px, 6vw, 52px); font-weight: 400; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+  .hero h1 em { font-style: italic; color: var(--orange); }
+  .hero-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+
+  /* Summary cards */
+  .summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 64px; }
+  @media(max-width: 560px) { .summary { grid-template-columns: 1fr; } }
+  .summary-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px 18px; text-align: center;
+  }
+  .summary-card .icon { font-size: 24px; margin-bottom: 8px; display: block; }
+  .summary-card h3 { font-size: 12px; font-weight: 500; color: var(--cream); margin-bottom: 4px; }
+  .summary-card p  { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .summary-card.good { border-color: rgba(46,196,182,0.2); }
+  .summary-card.good .icon::after { content: ''; }
+
+  /* Policy sections */
+  .policy { margin-bottom: 72px; }
+
+  .section-label {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 32px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .policy-block { margin-bottom: 40px; }
+  .policy-block h2 {
+    font-family: var(--font-serif); font-size: 20px; font-style: italic;
+    color: var(--cream); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .policy-block h2 .num {
+    font-family: var(--font-mono); font-size: 10px; font-style: normal;
+    color: var(--orange); letter-spacing: 1px;
+    background: rgba(255,107,53,0.1); border-radius: 4px;
+    padding: 2px 7px;
+  }
+  .policy-block p { font-size: 14px; color: var(--muted); line-height: 1.9; margin-bottom: 10px; }
+  .policy-block ul { list-style: none; padding: 0; }
+  .policy-block ul li {
+    font-size: 14px; color: var(--muted); line-height: 1.9;
+    padding-left: 18px; position: relative; margin-bottom: 4px;
+  }
+  .policy-block ul li::before { content: '–'; position: absolute; left: 0; color: var(--orange); }
+
+  .highlight {
+    background: rgba(46,196,182,0.05); border: 1px solid rgba(46,196,182,0.15);
+    border-left: 3px solid var(--teal); border-radius: 0 10px 10px 0;
+    padding: 16px 20px; margin: 20px 0;
+    font-size: 14px; color: var(--cream); font-style: italic;
+  }
+
+  .contact {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 40px; margin-bottom: 72px;
+    position: relative; overflow: hidden;
+  }
+  .contact::before {
+    content: ''; position: absolute; bottom: -60px; left: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(46,196,182,0.06) 0%, transparent 70%);
+  }
+  .contact h2 { font-family: var(--font-serif); font-size: 26px; font-style: italic; color: var(--cream); margin-bottom: 10px; }
+  .contact p { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .contact-email {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 20px; font-family: var(--font-mono); font-size: 13px;
+    color: var(--orange); text-decoration: none; transition: all 0.25s;
+  }
+  .contact-email:hover { background: rgba(255,107,53,0.08); border-color: rgba(255,107,53,0.3); transform: translateY(-2px); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 32px 0;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  footer p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--orange); }
+  .footer-links { display: flex; gap: 20px; }
+
+  .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 0.7s ease forwards; }
+  @keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
+  .fade-in:nth-child(2) { animation-delay: 0.1s; }
+  .fade-in:nth-child(3) { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<div class="blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<div class="container">
+  <nav>
+    <a class="wordmark" href="index.html">timml</a>
+    <div class="nav-links">
+      <a href="support.html">Support</a>
+      <a href="privacy.html" class="active">Privacy</a>
+    </div>
+  </nav>
+
+  <div class="hero fade-in">
+    <p class="hero-tag">Privacy Policy</p>
+    <h1>Your music.<br><em>Your data.</em></h1>
+    <p class="hero-meta">Effective: January 1, 2025 &nbsp;·&nbsp; Last updated: January 1, 2025</p>
+  </div>
+
+  <!-- Summary cards -->
+  <div class="summary fade-in">
+    <div class="summary-card good">
+      <span class="icon">🎙️</span>
+      <h3>Mic stays on device</h3>
+      <p>Audio is processed locally. Never uploaded or stored.</p>
+    </div>
+    <div class="summary-card good">
+      <span class="icon">🚫</span>
+      <h3>No tracking</h3>
+      <p>We don't use analytics, ads, or third-party trackers.</p>
+    </div>
+    <div class="summary-card good">
+      <span class="icon">💳</span>
+      <h3>Apple handles payments</h3>
+      <p>We never see your payment details. All billing is via Apple.</p>
+    </div>
+  </div>
+
+  <!-- Policy -->
+  <div class="policy fade-in">
+    <p class="section-label">Full Policy</p>
+
+    <div class="policy-block">
+      <h2><span class="num">01</span> Who we are</h2>
+      <p>timml is developed and published by Plaintiffy, a sole developer based in Germany. You can reach us at <a href="mailto:privacy@plaintiffy.com" style="color:var(--orange);text-decoration:none;">privacy@plaintiffy.com</a>.</p>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">02</span> What data we collect</h2>
+      <div class="highlight">timml is designed to collect as little data as possible. In most cases, that's none at all.</div>
+      <p>timml does <strong style="color:var(--cream);">not</strong> collect:</p>
+      <ul>
+        <li>Audio recordings — microphone input is processed in real time on your device and immediately discarded</li>
+        <li>Personal information — no name, email, or account is required to use the app</li>
+        <li>Location data</li>
+        <li>Usage analytics or behavioral tracking</li>
+        <li>Crash reports sent to us directly</li>
+      </ul>
+      <p style="margin-top:16px;">The only data associated with your use of timml is:</p>
+      <ul>
+        <li>App preferences stored locally on your device (theme, saved patterns) via iOS UserDefaults</li>
+        <li>Subscription status managed by Apple and RevenueCat (see section 04)</li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">03</span> Microphone access</h2>
+      <p>timml requires microphone access to detect the tempo and style of your music. This is the core function of the app.</p>
+      <ul>
+        <li>Audio is analyzed on-device using Apple's AVFoundation and Accelerate frameworks</li>
+        <li>No audio is ever transmitted to our servers or any third party</li>
+        <li>No recordings are made or stored at any point</li>
+        <li>You can revoke microphone access at any time in Settings → timml → Microphone</li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">04</span> Subscriptions & payments</h2>
+      <p>timml Pro subscriptions are processed entirely by Apple through the App Store. We use RevenueCat to manage subscription status.</p>
+      <ul>
+        <li>We never see or store your payment information</li>
+        <li>RevenueCat receives an anonymous app user ID to verify subscription status — no personal data</li>
+        <li>Apple's privacy policy governs all payment processing: <a href="https://www.apple.com/legal/privacy/" style="color:var(--orange);text-decoration:none;">apple.com/legal/privacy</a></li>
+        <li>RevenueCat's privacy policy: <a href="https://www.revenuecat.com/privacy" style="color:var(--orange);text-decoration:none;">revenuecat.com/privacy</a></li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">05</span> Third-party services</h2>
+      <p>timml uses the following third-party services:</p>
+      <ul>
+        <li><strong style="color:var(--cream);">RevenueCat</strong> — subscription management. Receives: anonymous app user ID, subscription state. Does not receive: audio, personal information.</li>
+        <li><strong style="color:var(--cream);">Apple App Store</strong> — app distribution and payment processing.</li>
+        <li><strong style="color:var(--cream);">Apple CloudKit</strong> — if you save patterns, they may be stored in your personal iCloud account. This data is encrypted and only accessible to you.</li>
+      </ul>
+      <p>We do not use Google Analytics, Facebook SDK, advertising networks, or any other tracking services.</p>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">06</span> Children's privacy</h2>
+      <p>timml does not knowingly collect any personal information from children under 13. The app contains no features targeting children and is rated 4+ solely because it contains no objectionable content.</p>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">07</span> Data retention</h2>
+      <p>Since we collect no personal data, there is nothing to retain or delete. App preferences stored on your device are removed when you uninstall the app. Subscription records are managed by Apple and RevenueCat according to their respective retention policies.</p>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">08</span> Your rights (GDPR)</h2>
+      <p>If you are located in the European Economic Area, you have the right to access, correct, and delete any personal data we hold about you. Since we hold no personal data, there is nothing to access or delete. For questions, contact us at <a href="mailto:privacy@plaintiffy.com" style="color:var(--orange);text-decoration:none;">privacy@plaintiffy.com</a>.</p>
+    </div>
+
+    <div class="policy-block">
+      <h2><span class="num">09</span> Changes to this policy</h2>
+      <p>If we make material changes to this policy, we will update the "Last updated" date at the top of this page. We may also notify you through an app update. Continued use of timml after changes constitutes acceptance of the updated policy.</p>
+    </div>
+
+  </div>
+
+  <!-- Contact -->
+  <div class="contact fade-in">
+    <h2>Privacy questions?</h2>
+    <p>We're happy to answer any questions about how timml handles your data.</p>
+    <a class="contact-email" href="/cdn-cgi/l/email-protection#5323213a253
