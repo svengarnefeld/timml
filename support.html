@@ -8,369 +8,171 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg:        #0e0a07;
-    --bg2:       #160f0a;
-    --bg3:       #1e1510;
-    --orange:    #ff6b35;
-    --orange2:   #ff4d1a;
-    --teal:      #2ec4b6;
-    --cream:     #f0e6d3;
-    --muted:     #7a6a58;
-    --border:    rgba(255,107,53,0.12);
-    --font-serif: 'Playfair Display', Georgia, serif;
-    --font-mono:  'DM Mono', monospace;
-    --font-sans:  'DM Sans', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--cream);
-    font-family: var(--font-sans);
-    font-weight: 300;
-    line-height: 1.7;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── Ambient blobs ─────────────────────────────────────────── */
-  .blobs {
-    position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    overflow: hidden;
-  }
-  .blob {
-    position: absolute; border-radius: 50%; filter: blur(100px);
-    animation: drift 20s ease-in-out infinite alternate;
-  }
-  .blob-1 { width: 500px; height: 500px; background: rgba(255,107,53,0.06); top: -150px; left: -100px; animation-duration: 18s; }
-  .blob-2 { width: 400px; height: 400px; background: rgba(46,196,182,0.05); bottom: 100px; right: -100px; animation-duration: 24s; animation-delay: -8s; }
-  .blob-3 { width: 300px; height: 300px; background: rgba(139,47,201,0.05); top: 50%; left: 40%; animation-duration: 16s; animation-delay: -4s; }
-
-  @keyframes drift {
-    from { transform: translate(0, 0) scale(1); }
-    to   { transform: translate(30px, -40px) scale(1.08); }
-  }
-
-  /* ── Layout ────────────────────────────────────────────────── */
-  .container { max-width: 740px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-  /* ── Nav ───────────────────────────────────────────────────── */
-  nav {
-    padding: 28px 0 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 72px;
-  }
-  .wordmark {
-    font-family: var(--font-serif); font-style: italic; font-size: 28px;
-    color: var(--orange); letter-spacing: -0.5px; text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 28px; }
-  .nav-links a {
-    font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
-    color: var(--muted); text-decoration: none; text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--orange); }
-
-  /* ── Hero ──────────────────────────────────────────────────── */
-  .hero { margin-bottom: 72px; }
-  .hero-tag {
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px;
-    color: var(--orange); text-transform: uppercase; margin-bottom: 16px;
-  }
-  .hero h1 {
-    font-family: var(--font-serif); font-size: clamp(36px, 7vw, 56px);
-    font-weight: 400; line-height: 1.15; color: var(--cream);
-    margin-bottom: 20px;
-  }
-  .hero h1 em { font-style: italic; color: var(--orange); }
-  .hero p { font-size: 16px; color: var(--muted); max-width: 520px; }
-
-  /* ── FAQ ───────────────────────────────────────────────────── */
-  .section-label {
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px;
-    color: var(--muted); text-transform: uppercase; margin-bottom: 32px;
-    display: flex; align-items: center; gap: 16px;
-  }
-  .section-label::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
-
-  .faq { margin-bottom: 72px; }
-  .faq-item {
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-  }
-  .faq-q {
-    width: 100%; background: none; border: none; cursor: pointer;
-    padding: 22px 0; display: flex; align-items: center; justify-content: space-between;
-    gap: 16px; text-align: left;
-  }
-  .faq-q span {
-    font-family: var(--font-sans); font-size: 15px; font-weight: 500;
-    color: var(--cream); line-height: 1.4;
-  }
-  .faq-icon {
-    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
-    border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-    transition: all 0.3s; color: var(--muted); font-size: 14px;
-  }
-  .faq-item.open .faq-icon { background: var(--orange); border-color: var(--orange); color: #000; transform: rotate(45deg); }
-  .faq-a {
-    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
-  }
-  .faq-a-inner {
-    padding-bottom: 22px; font-size: 14px; color: var(--muted); line-height: 1.8;
-  }
-  .faq-a-inner a { color: var(--orange); text-decoration: none; }
-  .faq-a-inner a:hover { text-decoration: underline; }
-  .faq-item.open .faq-a { max-height: 400px; }
-
-  /* ── Contact ───────────────────────────────────────────────── */
-  .contact {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 20px; padding: 48px 40px; margin-bottom: 72px;
-    position: relative; overflow: hidden;
-  }
-  .contact::before {
-    content: ''; position: absolute; top: -60px; right: -60px;
-    width: 200px; height: 200px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
-  }
-  .contact h2 {
-    font-family: var(--font-serif); font-size: 28px; font-style: italic;
-    color: var(--cream); margin-bottom: 12px;
-  }
-  .contact p { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
-  .contact-email {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--bg3); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px 20px;
-    font-family: var(--font-mono); font-size: 13px; color: var(--orange);
-    text-decoration: none; transition: all 0.25s;
-  }
-  .contact-email:hover {
-    background: rgba(255,107,53,0.08); border-color: rgba(255,107,53,0.3);
-    transform: translateY(-2px);
-  }
-  .contact-email .dot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-  /* ── Tips ──────────────────────────────────────────────────── */
-  .tips { margin-bottom: 72px; }
-  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media(max-width: 540px) { .tips-grid { grid-template-columns: 1fr; } }
-
-  .tip-card {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 14px; padding: 24px;
-    transition: border-color 0.25s, transform 0.25s;
-  }
-  .tip-card:hover { border-color: rgba(255,107,53,0.25); transform: translateY(-2px); }
-  .tip-icon {
-    font-size: 22px; margin-bottom: 12px; display: block;
-  }
-  .tip-card h3 { font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
-  .tip-card p  { font-size: 12px; color: var(--muted); line-height: 1.7; }
-
-  /* ── Footer ────────────────────────────────────────────────── */
-  footer {
-    border-top: 1px solid var(--border); padding: 32px 0;
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  }
-  footer p { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
-  footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  footer a:hover { color: var(--orange); }
-  .footer-links { display: flex; gap: 20px; }
-
-  /* ── Animations ────────────────────────────────────────────── */
-  .fade-in {
-    opacity: 0; transform: translateY(20px);
-    animation: fadeIn 0.7s ease forwards;
-  }
-  @keyframes fadeIn { to { opacity:1; transform:translateY(0); } }
-  .fade-in:nth-child(2) { animation-delay: 0.1s; }
-  .fade-in:nth-child(3) { animation-delay: 0.2s; }
-  .fade-in:nth-child(4) { animation-delay: 0.3s; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0e0a07;--bg2:#160f0a;--bg3:#1e1510;--orange:#ff6b35;--teal:#2ec4b6;--cream:#f0e6d3;--muted:#7a6a58;--border:rgba(255,107,53,0.12);--serif:'Playfair Display',Georgia,serif;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden}
+.blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);animation:drift 20s ease-in-out infinite alternate}
+.b1{width:500px;height:500px;background:rgba(255,107,53,0.06);top:-150px;left:-100px}
+.b2{width:400px;height:400px;background:rgba(46,196,182,0.05);bottom:100px;right:-100px;animation-delay:-8s}
+.b3{width:300px;height:300px;background:rgba(139,47,201,0.05);top:50%;left:40%;animation-delay:-4s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,-40px) scale(1.08)}}
+.wrap{max-width:740px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);margin-bottom:72px}
+.logo{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--orange);text-decoration:none}
+.navlinks{display:flex;gap:28px}
+.navlinks a{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .2s}
+.navlinks a:hover,.navlinks a.on{color:var(--orange)}
+.hero{margin-bottom:72px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:16px}
+.hero h1{font-family:var(--serif);font-size:clamp(36px,7vw,56px);font-weight:400;line-height:1.15;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--orange)}
+.hero p{font-size:16px;color:var(--muted);max-width:520px}
+.sl{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:32px;display:flex;align-items:center;gap:16px}
+.sl::after{content:'';flex:1;height:1px;background:var(--border)}
+.tips{margin-bottom:72px}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:540px){.tgrid{grid-template-columns:1fr}}
+.tip{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;transition:border-color .25s,transform .25s}
+.tip:hover{border-color:rgba(255,107,53,0.25);transform:translateY(-2px)}
+.tip .ic{font-size:22px;margin-bottom:12px;display:block}
+.tip h3{font-size:13px;font-weight:500;color:var(--cream);margin-bottom:6px}
+.tip p{font-size:12px;color:var(--muted);line-height:1.7}
+.faq{margin-bottom:72px}
+.fi{border-bottom:1px solid var(--border)}
+.fb{width:100%;background:none;border:none;cursor:pointer;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left}
+.fb span{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--cream);line-height:1.4}
+.fico{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--muted);font-size:18px;font-family:var(--mono);line-height:1}
+.fd{overflow:hidden;max-height:0;transition:max-height .4s ease}
+.fdi{padding-bottom:22px;font-size:14px;color:var(--muted);line-height:1.8}
+.fdi a{color:var(--orange);text-decoration:none}
+.fdi a:hover{text-decoration:underline}
+.fi.open .fico{background:var(--orange);border-color:var(--orange);color:#000;transform:rotate(45deg)}
+.fi.open .fd{max-height:500px}
+.contact{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:48px 40px;margin-bottom:72px;position:relative;overflow:hidden}
+.contact::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,0.08) 0%,transparent 70%)}
+.contact h2{font-family:var(--serif);font-size:28px;font-style:italic;color:var(--cream);margin-bottom:12px}
+.contact p{font-size:14px;color:var(--muted);margin-bottom:28px}
+.elink{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px 20px;font-family:var(--mono);font-size:13px;color:var(--orange);text-decoration:none;transition:all .25s}
+.elink:hover{background:rgba(255,107,53,0.08);border-color:rgba(255,107,53,0.3);transform:translateY(-2px)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+footer{border-top:1px solid var(--border);padding:32px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer p{font-family:var(--mono);font-size:11px;color:var(--muted)}
+footer a{color:var(--muted);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--orange)}
+.fl{display:flex;gap:20px}
+.fade{opacity:0;transform:translateY(20px);animation:fadein .7s ease forwards}
+.fade:nth-child(2){animation-delay:.1s}.fade:nth-child(3){animation-delay:.2s}.fade:nth-child(4){animation-delay:.3s}
+@keyframes fadein{to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
+<div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="wrap">
 
-<div class="blobs">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-</div>
-
-<div class="container">
   <nav>
-    <a class="wordmark" href="index.html">timml</a>
-    <div class="nav-links">
-      <a href="support.html" class="active">Support</a>
+    <a class="logo" href="index.html">timml</a>
+    <div class="navlinks">
+      <a href="support.html" class="on">Support</a>
       <a href="privacy.html">Privacy</a>
     </div>
   </nav>
 
-  <div class="hero fade-in">
-    <p class="hero-tag">Support</p>
-    <h1>We're here<br>to <em>help you play.</em></h1>
+  <div class="hero fade">
+    <p class="tag">Support</p>
+    <h1>We&#8217;re here<br>to <em>help you play.</em></h1>
     <p>Find answers to common questions below, or reach out directly. We respond to every message.</p>
   </div>
 
-  <!-- Tips -->
-  <div class="tips fade-in">
-    <p class="section-label">Quick Tips</p>
-    <div class="tips-grid">
-      <div class="tip-card">
-        <span class="tip-icon">🎙️</span>
-        <h3>Grant microphone access</h3>
-        <p>timml needs the microphone to hear your music. Go to Settings → timml → Microphone and enable it.</p>
-      </div>
-      <div class="tip-card">
-        <span class="tip-icon">🎸</span>
-        <h3>Play clearly for a few bars</h3>
-        <p>timml needs 2–4 bars of steady playing to lock onto your tempo. Start with a clear, rhythmic pattern.</p>
-      </div>
-      <div class="tip-card">
-        <span class="tip-icon">🔇</span>
-        <h3>Reduce background noise</h3>
-        <p>timml works best in a reasonably quiet room. Background music or TV can confuse the BPM detection.</p>
-      </div>
-      <div class="tip-card">
-        <span class="tip-icon">🌿</span>
-        <h3>Try Organic Mode</h3>
-        <p>Tap the leaf icon in the header to switch between the organic warm theme and the tech mode.</p>
-      </div>
+  <div class="tips fade">
+    <p class="sl">Quick Tips</p>
+    <div class="tgrid">
+      <div class="tip"><span class="ic">&#127897;&#65039;</span><h3>Grant microphone access</h3><p>timml needs the microphone to hear your music. Go to Settings &#8594; timml &#8594; Microphone and enable it.</p></div>
+      <div class="tip"><span class="ic">&#127928;</span><h3>Play clearly for a few bars</h3><p>timml needs 2&#8211;4 bars of steady playing to lock onto your tempo. Start with a clear, rhythmic pattern.</p></div>
+      <div class="tip"><span class="ic">&#128263;</span><h3>Reduce background noise</h3><p>timml works best in a reasonably quiet room. Background music or TV can confuse the BPM detection.</p></div>
+      <div class="tip"><span class="ic">&#127807;</span><h3>Try Organic Mode</h3><p>Tap the leaf icon in the header to switch between the warm organic theme and tech mode.</p></div>
     </div>
   </div>
 
-  <!-- FAQ -->
-  <div class="faq fade-in">
-    <p class="section-label">Frequently Asked</p>
+  <div class="faq fade">
+    <p class="sl">Frequently Asked</p>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>timml isn't detecting my BPM. What should I do?</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        Make sure microphone permission is granted in Settings → timml. Then try playing more rhythmically for 4–8 bars — timml needs consistent onsets to find the tempo. Legato or very slow playing can be harder to detect. If all else fails, you can set the BPM manually by tapping the BPM display.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>timml isn&#8217;t detecting my BPM. What should I do?</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">Make sure microphone permission is granted in Settings &#8594; timml. Then try playing more rhythmically for 4&#8211;8 bars &#8212; timml needs consistent onsets to find the tempo. Legato or very slow playing can be harder to detect. If all else fails, set the BPM manually by tapping the BPM display.</div></div>
     </div>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>The drum style doesn't match what I'm playing.</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        Style detection is based on the energy and rhythmic character of your playing. If the auto-detected style doesn't feel right, simply tap the style you want in the style selector — timml will switch immediately.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>The drum style doesn&#8217;t match what I&#8217;m playing.</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">Style detection is based on the energy and rhythmic character of your playing. If the auto-detected style doesn&#8217;t feel right, simply tap the style you want in the style selector &#8212; timml will switch immediately.</div></div>
     </div>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>timml stops playing when I pause. How do I prevent this?</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        timml has an auto-stop feature that detects silence. It's designed to feel natural during song transitions. If you want the groove to continue through pauses, tap the play button manually to keep it running — it will stay locked to the last detected tempo.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>timml stops playing when I pause. How do I prevent this?</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">timml has an auto-stop feature that detects silence. It&#8217;s designed to feel natural during song transitions. If you want the groove to continue through pauses, tap the play button manually &#8212; it will stay locked to the last detected tempo.</div></div>
     </div>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>How do I restore my Pro subscription on a new device?</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        Open the paywall (tap any Pro-locked feature or the PRO button in the header) and scroll to the bottom. Tap <strong>Restore purchases</strong>. Make sure you're signed in with the same Apple ID you used to purchase.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>How do I restore my Pro subscription on a new device?</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">Open the paywall (tap any Pro-locked feature or the PRO button in the header) and scroll to the bottom. Tap <strong>Restore purchases</strong>. Make sure you&#8217;re signed in with the same Apple ID you used to purchase.</div></div>
     </div>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>What's included in timml Pro?</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        timml Pro unlocks all 12 drum styles (Blues, Funk, Hip-Hop, Metal, Latin, Bossa Nova, EDM, Country, and more), the Pattern Editor, Save &amp; Load patterns, and MIDI Sync. BPM detection, Rock/Pop/Jazz, Auto-Fill, and Organic Mode are always free.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>What&#8217;s included in timml Pro?</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">timml Pro unlocks all 12 drum styles (Blues, Funk, Hip-Hop, Metal, Latin, Bossa Nova, EDM, Country, and more), the Pattern Editor, Save &amp; Load patterns, and MIDI Sync. BPM detection, Rock/Pop/Jazz, Auto-Fill, and Organic Mode are always free.</div></div>
     </div>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>How do I cancel my subscription?</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        Subscriptions are managed through Apple. Go to Settings → your name → Subscriptions → timml Pro, then tap Cancel Subscription. You'll retain access until the end of the current billing period.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>How do I cancel my subscription?</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">Subscriptions are managed through Apple. Go to Settings &#8594; your name &#8594; Subscriptions &#8594; timml Pro, then tap Cancel Subscription. You&#8217;ll retain access until the end of the current billing period.</div></div>
     </div>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>Does timml work without an internet connection?</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        Yes — timml runs entirely on your device. BPM detection, style analysis, pattern playback, and the drum engine all work offline. An internet connection is only needed to process in-app purchases.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>Does timml work without an internet connection?</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">Yes &#8212; timml runs entirely on your device. BPM detection, style analysis, pattern playback, and the drum engine all work offline. An internet connection is only needed to process in-app purchases.</div></div>
     </div>
 
-    <div class="faq-item">
-      <button class="faq-q">
-        <span>What iOS version does timml require?</span>
-        <div class="faq-icon">+</div>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">
-        timml requires iOS 16.0 or later and works on iPhone and iPad.
-      </div></div>
+    <div class="fi">
+      <button class="fb"><span>What iOS version does timml require?</span><div class="fico">+</div></button>
+      <div class="fd"><div class="fdi">timml requires iOS 16.0 or later and works on iPhone and iPad.</div></div>
     </div>
 
   </div>
 
-  <!-- Contact -->
-  <div class="contact fade-in">
+  <div class="contact fade">
     <h2>Still need help?</h2>
-    <p>Send us a message and we'll get back to you — usually within 24 hours.</p>
-    <a class="contact-email" href="/cdn-cgi/l/email-protection#2d5e585d5d425f596d5d414c444359444b4b54034e4240">
+    <p>Send us a message and we&#8217;ll get back to you &#8212; usually within 24 hours.</p>
+    <a class="elink" href="mailto:support@plaintiffy.com">
       <div class="dot"></div>
-      <span class="__cf_email__" data-cfemail="9ae9efeaeaf5e8eedaeaf6fbf3f4eef3fcfce3b4f9f5f7">[email&#160;protected]</span>
+      support@plaintiffy.com
     </a>
   </div>
 
   <footer>
-    <p>© 2025 Plaintiffy · timml</p>
-    <div class="footer-links">
+    <p>&#169; 2025 Plaintiffy &#183; timml</p>
+    <div class="fl">
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy</a>
     </div>
   </footer>
-</div>
 
-<scr
+</div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.faq-q').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var item = btn.closest('.faq-item');
-      var isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(function(el) {
-        el.classList.remove('open');
+(function(){
+  var items = document.querySelectorAll('.fi');
+  for(var i=0;i<items.length;i++){
+    (function(item){
+      var btn = item.querySelector('.fb');
+      btn.addEventListener('click', function(){
+        var open = item.classList.contains('open');
+        for(var j=0;j<items.length;j++) items[j].classList.remove('open');
+        if(!open) item.classList.add('open');
       });
-      if (!isOpen) item.classList.add('open');
-    });
-  });
-});
+    })(items[i]);
+  }
+})();
 </script>
 </body>
 </html>
