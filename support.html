@@ -9,28 +9,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0e0a07;--bg2:#160f0a;--bg3:#1e1510;--orange:#ff6b35;--teal:#2ec4b6;--cream:#f0e6d3;--muted:#7a6a58;--border:rgba(255,107,53,0.12);--serif:'Playfair Display',Georgia,serif;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif}
+:root{
+  --bg:#0e0a07;--bg2:#160f0a;--bg3:#1e1510;
+  --orange:#ff6b35;--teal:#2ec4b6;--cream:#f0e6d3;--muted:#7a6a58;
+  --border:rgba(255,107,53,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+/* Blobs */
 .blobs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .blob{position:absolute;border-radius:50%;filter:blur(100px);animation:drift 20s ease-in-out infinite alternate}
 .b1{width:500px;height:500px;background:rgba(255,107,53,0.06);top:-150px;left:-100px}
 .b2{width:400px;height:400px;background:rgba(46,196,182,0.05);bottom:100px;right:-100px;animation-delay:-8s}
 .b3{width:300px;height:300px;background:rgba(139,47,201,0.05);top:50%;left:40%;animation-delay:-4s}
 @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,-40px) scale(1.08)}}
+
 .wrap{max-width:740px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* Nav */
 nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);margin-bottom:72px}
 .logo{font-family:var(--serif);font-style:italic;font-size:28px;color:var(--orange);text-decoration:none}
 .navlinks{display:flex;gap:28px}
 .navlinks a{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .2s}
 .navlinks a:hover,.navlinks a.on{color:var(--orange)}
+
+/* Hero */
 .hero{margin-bottom:72px}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--orange);text-transform:uppercase;margin-bottom:16px}
 .hero h1{font-family:var(--serif);font-size:clamp(36px,7vw,56px);font-weight:400;line-height:1.15;margin-bottom:20px}
 .hero h1 em{font-style:italic;color:var(--orange)}
 .hero p{font-size:16px;color:var(--muted);max-width:520px}
+
+/* Section label */
 .sl{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:32px;display:flex;align-items:center;gap:16px}
 .sl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Tips */
 .tips{margin-bottom:72px}
 .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:540px){.tgrid{grid-template-columns:1fr}}
@@ -39,30 +57,80 @@ nav{padding:28px 0 24px;display:flex;align-items:center;justify-content:space-be
 .tip .ic{font-size:22px;margin-bottom:12px;display:block}
 .tip h3{font-size:13px;font-weight:500;color:var(--cream);margin-bottom:6px}
 .tip p{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* ── CSS-only FAQ via hidden checkbox ── */
 .faq{margin-bottom:72px}
-.fi{border-bottom:1px solid var(--border)}
-.fb{width:100%;background:none;border:none;cursor:pointer;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left}
-.fb span{font-family:var(--sans);font-size:15px;font-weight:500;color:var(--cream);line-height:1.4}
-.fico{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--muted);font-size:18px;font-family:var(--mono);line-height:1}
-.fd{overflow:hidden;max-height:0;transition:max-height .4s ease}
-.fdi{padding-bottom:22px;font-size:14px;color:var(--muted);line-height:1.8}
-.fdi a{color:var(--orange);text-decoration:none}
-.fdi a:hover{text-decoration:underline}
-.fi.open .fico{background:var(--orange);border-color:var(--orange);color:#000;transform:rotate(45deg)}
-.fi.open .fd{max-height:500px}
+
+/* Hide the checkboxes themselves */
+.faq input[type="checkbox"]{
+  position:absolute;opacity:0;width:0;height:0;pointer-events:none;
+}
+
+.faq-item{border-bottom:1px solid var(--border)}
+
+/* The visible label acts as the click target */
+.faq-item label{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:22px 0;cursor:pointer;
+}
+.faq-item label span{
+  font-family:var(--sans);font-size:15px;font-weight:500;color:var(--cream);line-height:1.4;
+}
+
+/* The + icon */
+.faq-item label::after{
+  content:'+';
+  flex-shrink:0;width:24px;height:24px;border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:18px;font-family:var(--mono);line-height:24px;text-align:center;
+  transition:all .3s;
+}
+
+/* Answer panel – collapsed by default */
+.faq-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s ease;
+}
+.faq-body-inner{
+  padding-bottom:22px;font-size:14px;color:var(--muted);line-height:1.8;
+}
+.faq-body-inner a{color:var(--orange);text-decoration:none}
+.faq-body-inner a:hover{text-decoration:underline}
+
+/* When checkbox is checked: open the panel and rotate icon */
+.faq-item input:checked ~ .faq-body{max-height:500px}
+.faq-item input:checked ~ label::after{
+  content:'×';
+  background:var(--orange);border-color:var(--orange);color:#000;font-size:20px;
+}
+
+/* Wait — label comes AFTER input in DOM so we use adjacent sibling on label */
+/* Restructure: input → label → body. Use input:checked + label for icon, input:checked ~ .faq-body for panel */
+.faq-item input:checked + label::after{
+  content:'×';background:var(--orange);border-color:var(--orange);color:#000;font-size:20px;
+}
+.faq-item input:checked ~ .faq-body{max-height:500px}
+
+/* Contact */
 .contact{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:48px 40px;margin-bottom:72px;position:relative;overflow:hidden}
 .contact::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,0.08) 0%,transparent 70%)}
 .contact h2{font-family:var(--serif);font-size:28px;font-style:italic;color:var(--cream);margin-bottom:12px}
 .contact p{font-size:14px;color:var(--muted);margin-bottom:28px}
-.elink{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px 20px;font-family:var(--mono);font-size:13px;color:var(--orange);text-decoration:none;transition:all .25s}
+.elink{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px 20px;font-family:var(--mono);font-size:13px;color:var(--orange);text-decoration:none;transition:all .25s;cursor:pointer}
 .elink:hover{background:rgba(255,107,53,0.08);border-color:rgba(255,107,53,0.3);transform:translateY(-2px)}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+#eaddr{color:var(--orange)}
+
+/* Footer */
 footer{border-top:1px solid var(--border);padding:32px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 footer p{font-family:var(--mono);font-size:11px;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:none;transition:color .2s}
 footer a:hover{color:var(--orange)}
 .fl{display:flex;gap:20px}
+
+/* Fade in */
 .fade{opacity:0;transform:translateY(20px);animation:fadein .7s ease forwards}
 .fade:nth-child(2){animation-delay:.1s}.fade:nth-child(3){animation-delay:.2s}.fade:nth-child(4){animation-delay:.3s}
 @keyframes fadein{to{opacity:1;transform:translateY(0)}}
@@ -99,44 +167,52 @@ footer a:hover{color:var(--orange)}
   <div class="faq fade">
     <p class="sl">Frequently Asked</p>
 
-    <div class="fi">
-      <button class="fb"><span>timml isn&#8217;t detecting my BPM. What should I do?</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">Make sure microphone permission is granted in Settings &#8594; timml. Then try playing more rhythmically for 4&#8211;8 bars &#8212; timml needs consistent onsets to find the tempo. Legato or very slow playing can be harder to detect. If all else fails, set the BPM manually by tapping the BPM display.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q1">
+      <label for="q1"><span>timml isn&#8217;t detecting my BPM. What should I do?</span></label>
+      <div class="faq-body"><div class="faq-body-inner">Make sure microphone permission is granted in Settings &#8594; timml. Then try playing more rhythmically for 4&#8211;8 bars &#8212; timml needs consistent onsets to find the tempo. Legato or very slow playing can be harder to detect. If all else fails, set the BPM manually by tapping the BPM display.</div></div>
     </div>
 
-    <div class="fi">
-      <button class="fb"><span>The drum style doesn&#8217;t match what I&#8217;m playing.</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">Style detection is based on the energy and rhythmic character of your playing. If the auto-detected style doesn&#8217;t feel right, simply tap the style you want in the style selector &#8212; timml will switch immediately.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q2">
+      <label for="q2"><span>The drum style doesn&#8217;t match what I&#8217;m playing.</span></label>
+      <div class="faq-body"><div class="faq-body-inner">Style detection is based on the energy and rhythmic character of your playing. If the auto-detected style doesn&#8217;t feel right, simply tap the style you want in the style selector &#8212; timml will switch immediately.</div></div>
     </div>
 
-    <div class="fi">
-      <button class="fb"><span>timml stops playing when I pause. How do I prevent this?</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">timml has an auto-stop feature that detects silence. It&#8217;s designed to feel natural during song transitions. If you want the groove to continue through pauses, tap the play button manually &#8212; it will stay locked to the last detected tempo.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q3">
+      <label for="q3"><span>timml stops playing when I pause. How do I prevent this?</span></label>
+      <div class="faq-body"><div class="faq-body-inner">timml has an auto-stop feature that detects silence. It&#8217;s designed to feel natural during song transitions. If you want the groove to continue through pauses, tap the play button manually &#8212; it will stay locked to the last detected tempo.</div></div>
     </div>
 
-    <div class="fi">
-      <button class="fb"><span>How do I restore my Pro subscription on a new device?</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">Open the paywall (tap any Pro-locked feature or the PRO button in the header) and scroll to the bottom. Tap <strong>Restore purchases</strong>. Make sure you&#8217;re signed in with the same Apple ID you used to purchase.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q4">
+      <label for="q4"><span>How do I restore my Pro subscription on a new device?</span></label>
+      <div class="faq-body"><div class="faq-body-inner">Open the paywall (tap any Pro-locked feature or the PRO button in the header) and scroll to the bottom. Tap <strong>Restore purchases</strong>. Make sure you&#8217;re signed in with the same Apple ID you used to purchase.</div></div>
     </div>
 
-    <div class="fi">
-      <button class="fb"><span>What&#8217;s included in timml Pro?</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">timml Pro unlocks all 12 drum styles (Blues, Funk, Hip-Hop, Metal, Latin, Bossa Nova, EDM, Country, and more), the Pattern Editor, Save &amp; Load patterns, and MIDI Sync. BPM detection, Rock/Pop/Jazz, Auto-Fill, and Organic Mode are always free.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q5">
+      <label for="q5"><span>What&#8217;s included in timml Pro?</span></label>
+      <div class="faq-body"><div class="faq-body-inner">timml Pro unlocks all 12 drum styles (Blues, Funk, Hip-Hop, Metal, Latin, Bossa Nova, EDM, Country, and more), the Pattern Editor, Save &amp; Load patterns, and MIDI Sync. BPM detection, Rock/Pop/Jazz, Auto-Fill, and Organic Mode are always free.</div></div>
     </div>
 
-    <div class="fi">
-      <button class="fb"><span>How do I cancel my subscription?</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">Subscriptions are managed through Apple. Go to Settings &#8594; your name &#8594; Subscriptions &#8594; timml Pro, then tap Cancel Subscription. You&#8217;ll retain access until the end of the current billing period.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q6">
+      <label for="q6"><span>How do I cancel my subscription?</span></label>
+      <div class="faq-body"><div class="faq-body-inner">Subscriptions are managed through Apple. Go to Settings &#8594; your name &#8594; Subscriptions &#8594; timml Pro, then tap Cancel Subscription. You&#8217;ll retain access until the end of the current billing period.</div></div>
     </div>
 
-    <div class="fi">
-      <button class="fb"><span>Does timml work without an internet connection?</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">Yes &#8212; timml runs entirely on your device. BPM detection, style analysis, pattern playback, and the drum engine all work offline. An internet connection is only needed to process in-app purchases.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q7">
+      <label for="q7"><span>Does timml work without an internet connection?</span></label>
+      <div class="faq-body"><div class="faq-body-inner">Yes &#8212; timml runs entirely on your device. BPM detection, style analysis, pattern playback, and the drum engine all work offline. An internet connection is only needed to process in-app purchases.</div></div>
     </div>
 
-    <div class="fi">
-      <button class="fb"><span>What iOS version does timml require?</span><div class="fico">+</div></button>
-      <div class="fd"><div class="fdi">timml requires iOS 16.0 or later and works on iPhone and iPad.</div></div>
+    <div class="faq-item">
+      <input type="checkbox" id="q8">
+      <label for="q8"><span>What iOS version does timml require?</span></label>
+      <div class="faq-body"><div class="faq-body-inner">timml requires iOS 16.0 or later and works on iPhone and iPad.</div></div>
     </div>
 
   </div>
@@ -144,9 +220,9 @@ footer a:hover{color:var(--orange)}
   <div class="contact fade">
     <h2>Still need help?</h2>
     <p>Send us a message and we&#8217;ll get back to you &#8212; usually within 24 hours.</p>
-    <a class="elink" href="mailto:support@plaintiffy.com">
+    <a class="elink" id="elink" href="#">
       <div class="dot"></div>
-      support@plaintiffy.com
+      <span id="eaddr">support&#8203;[at]&#8203;plaintiffy&#8203;[dot]&#8203;com</span>
     </a>
   </div>
 
@@ -160,19 +236,12 @@ footer a:hover{color:var(--orange)}
 
 </div>
 <script>
-(function(){
-  var items = document.querySelectorAll('.fi');
-  for(var i=0;i<items.length;i++){
-    (function(item){
-      var btn = item.querySelector('.fb');
-      btn.addEventListener('click', function(){
-        var open = item.classList.contains('open');
-        for(var j=0;j<items.length;j++) items[j].classList.remove('open');
-        if(!open) item.classList.add('open');
-      });
-    })(items[i]);
-  }
-})();
+/* ROT13 decode — Cloudflare does not touch this pattern */
+function r(s){return s.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<='Z'?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26)})}
+var u=r('fhccbeg@cynvaghssl.pbz');
+var el=document.getElementById('elink');
+var addr=document.getElementById('eaddr');
+if(el&&addr){el.href='mailto:'+u;addr.textContent=u;}
 </script>
 </body>
 </html>
