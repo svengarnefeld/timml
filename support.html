@@ -257,7 +257,7 @@
     <p class="section-label">Frequently Asked</p>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>timml isn't detecting my BPM. What should I do?</span>
         <div class="faq-icon">+</div>
       </button>
@@ -267,7 +267,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>The drum style doesn't match what I'm playing.</span>
         <div class="faq-icon">+</div>
       </button>
@@ -277,7 +277,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>timml stops playing when I pause. How do I prevent this?</span>
         <div class="faq-icon">+</div>
       </button>
@@ -287,7 +287,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>How do I restore my Pro subscription on a new device?</span>
         <div class="faq-icon">+</div>
       </button>
@@ -297,7 +297,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>What's included in timml Pro?</span>
         <div class="faq-icon">+</div>
       </button>
@@ -307,7 +307,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>How do I cancel my subscription?</span>
         <div class="faq-icon">+</div>
       </button>
@@ -317,7 +317,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>Does timml work without an internet connection?</span>
         <div class="faq-icon">+</div>
       </button>
@@ -327,7 +327,7 @@
     </div>
 
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)">
+      <button class="faq-q">
         <span>What iOS version does timml require?</span>
         <div class="faq-icon">+</div>
       </button>
@@ -342,14 +342,14 @@
   <div class="contact fade-in">
     <h2>Still need help?</h2>
     <p>Send us a message and we'll get back to you — usually within 24 hours.</p>
-    <a class="contact-email" href="mailto:support@plaintiffy.com">
+    <a class="contact-email" href="/cdn-cgi/l/email-protection#2d5e585d5d425f596d5d414c444359444b4b54034e4240">
       <div class="dot"></div>
-      support@plaintiffy.com
+      <span class="__cf_email__" data-cfemail="9ae9efeaeaf5e8eedaeaf6fbf3f4eef3fcfce3b4f9f5f7">[email&#160;protected]</span>
     </a>
   </div>
 
   <footer>
-    <p>© 2026 Plaintiffy · timml</p>
+    <p>© 2025 Plaintiffy · timml</p>
     <div class="footer-links">
       <a href="support.html">Support</a>
       <a href="privacy.html">Privacy</a>
@@ -357,6 +357,20 @@
   </footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-function toggle(btn) {
-  con
+<scr
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el) {
+        el.classList.remove('open');
+      });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+});
+</script>
+</body>
+</html>
